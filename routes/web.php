@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ShortlinkRedirectController;
+use App\Models\Shortlink;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('l')->group(function () {
-    Route::get('{shortlink:path}', [ShortlinkRedirectController::class, 'show']);
+    Route::get('{shortlink:path}', [ShortlinkRedirectController::class, 'show'])->name('shortlink.show');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    $shortlinks = Shortlink::all();
+    return view('dashboard', compact(['shortlinks']));
 })->name('dashboard');

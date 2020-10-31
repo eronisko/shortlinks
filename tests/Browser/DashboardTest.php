@@ -23,7 +23,6 @@ class DashboardTest extends DuskTestCase
                 ->loginAs($shortlink->owner)
                 ->visit('/dashboard')
                 ->assertSee($shortlink->path)
-                ->assertSee($shortlink->longUrl)
             ;
         });
     }
